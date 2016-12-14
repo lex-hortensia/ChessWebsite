@@ -12,19 +12,13 @@ function processMouseInput(event) {
 	var arrayX = Math.floor(relX/tileSize);
 	var arrayY = Math.floor(relY/tileSize);
 
-	console.log('CLICK at ' + relX + ', '+relY);
-	
-	b.draw();
-
-	b.files[arrayY][arrayX].highlight();
+	b.selectTile(arrayX,arrayY);
 }
 
 canvasGA.addEventListener('click',processMouseInput);
 
 
-
 b.draw();
-
 
 
 
