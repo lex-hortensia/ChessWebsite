@@ -6,6 +6,8 @@ function board(){
 	this.x = 0;
 	this.whitePieces = [];
 	this.blackPieces = [];
+	this.turn = true; // true = white, false = black
+	this.color = "white";
 	
 
 
@@ -34,12 +36,21 @@ function board(){
 	this.whitePieces.push(new queen(3,7,"white",this));
 	this.whitePieces.push(new knight(1,7,"white",this));
 	this.whitePieces.push(new knight(6,7,"white",this));
+	this.whitePieces.push(new king(4,7,"white",this));
 
 
+	this.blackPieces.push(new rook(0,0,"black",this));
+	this.blackPieces.push(new knight(1,0,"black",this));
+	this.blackPieces.push(new bishop(2,0,"black",this));
+	this.blackPieces.push(new queen(3,0,"black",this));
+	this.blackPieces.push(new king(4,0,"black",this));
+	this.blackPieces.push(new bishop(5,0,"black",this));
+	this.blackPieces.push(new knight(6,0,"black",this));
+	this.blackPieces.push(new rook(7,0,"black",this));
 
 	for(var i = 0; i < 8; i++){
 		this.whitePieces.push(new whitePawn(i,6,this));
-		this.whitePieces.push(new blackPawn(i,1,this));
+		this.blackPieces.push(new blackPawn(i,1,this));
 	}
 	
 	
@@ -50,6 +61,14 @@ function board(){
 
 			if(piece.x == xCoord && piece.y == yCoord){
 				return this.whitePieces[i];
+			}
+		}
+
+		for(var i = 0; i<this.blackPieces.length; i++){
+			var piece = this.blackPieces[i];
+
+			if(piece.x == xCoord && piece.y == yCoord){
+				return this.blackPieces[i];
 			}
 		}
 
@@ -64,10 +83,16 @@ function board(){
 		}
 	}
 
+
 	this.getSelectedPiece = function(){
 		for(var i = 0; i < this.whitePieces.length; i++){
 			if(this.whitePieces[i].selected){
 				return this.whitePieces[i];
+			}
+		}
+		for(var i = 0; i < this.blackPieces.length; i++){
+			if(this.blackPieces[i].selected){
+				return this.blackPieces[i];
 			}
 		}
 
@@ -78,14 +103,52 @@ function board(){
 
 
 	this.selectTile = function(xCoord,yCoord){
+		if(this.turn == true)
+			this.color = "white";
+		else if(this.turn == false)
+			this.color = "black";
+
+		
+
 		this.unhighlightTiles();
 
 		if(this.getSelectedPiece() != null){
 			if(this.getSelectedPiece().isInMoveSet(xCoord,yCoord)){
+
+				if(this.tileContainsPiece(xCoord,yCoord) != null){
+					if(this.tileContainsPiece(xCoord,yCoord) != this.getSelectedPiece()){
+
+						console.log("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name );
+						
+						if(this.whitePieces.indexOf(this.tileContainsPiece(xCoord,yCoord)) > -1){
+							if(this.tileContainsPiece(xCoord,yCoord).name=="king"){
+								this.victoryBlack();
+							}
+							this.whitePieces.splice(this.whitePieces.indexOf(this.tileContainsPiece(xCoord,yCoord)),1);
+						}else{
+							if(this.tileContainsPiece(xCoord,yCoord).name=="king"){
+								this.victoryWhite();
+							}
+							this.blackPieces.splice(this.blackPieces.indexOf(this.tileContainsPiece(xCoord,yCoord)),1);
+						}
+
+					}
+				}
+
 				this.getSelectedPiece().moveTo(xCoord,yCoord);
 				this.refreshMoveSets();
+
+				if(this.turn == false)
+					this.turn = true;
+				else
+					this.turn = false;
+			
+
+				
+
 			}else{
-				if(this.tileContainsPiece(xCoord,yCoord) != null){
+
+				if(this.tileContainsPiece(xCoord,yCoord) != null && this.tileContainsPiece(xCoord,yCoord).color == this.color){
 					this.tileContainsPiece(xCoord,yCoord).selected = true;
 					var array = this.tileContainsPiece(xCoord,yCoord).moveSet;
 				
@@ -93,26 +156,27 @@ function board(){
 						array[i].highlighted = true;
 					}
 
+				}else{
+					this.files[yCoord][xCoord]
 				}
 			}
 
 			this.getSelectedPiece().selected = false;
 		}else{
 
-			
-
-			if(this.tileContainsPiece(xCoord,yCoord) != null){
+			if(this.tileContainsPiece(xCoord,yCoord) != null && this.tileContainsPiece(xCoord,yCoord).color == this.color){
 				this.tileContainsPiece(xCoord,yCoord).selected = true;
 				var array = this.tileContainsPiece(xCoord,yCoord).moveSet;
 			
 				for(var i = 0; i<array.length; i++){
 					array[i].highlighted = true;
 				}
-
 			}
 		}
 
 		this.draw();
+
+		
 	}
 
 
@@ -124,6 +188,22 @@ function board(){
 		return true;
 	}
 
+	this.victoryWhite = function(){
+		console.log("Victory for White");
+
+		contextGA.fillStyle = "#737373";
+		contextGA.fillRect(0,0,canvasGA.width,canvasGA.height);
+
+
+	}
+
+	this.victoryBlack = function(){
+		console.log("Victory for Black");
+
+		contextGA.fillStyle = "#737373";
+		contextGA.fillRect(0,0,canvasGA.width,canvasGA.height);
+
+	}
 
 
 
@@ -153,7 +233,23 @@ function board(){
 		for(var i = 0; i<this.whitePieces.length; i++){
 			this.whitePieces[i].refreshMoveSet();
 		}
+		for(var i = 0; i<this.blackPieces.length; i++){
+			this.blackPieces[i].refreshMoveSet();
+		}
+	}
 
+
+	this.KingIsInCheck = function(xCoord,yCoord, color){
+		if(color == "white"){
+
+			for(var i =0; i < blackPieces.length; i++){
+				for(var j = 0; j < blackPieces[i].moveSet; j++){
+					// if this tile's x and y = the x and y of the king
+					
+				}
+			}
+
+		}
 	}
 
 	this.refreshMoveSets();

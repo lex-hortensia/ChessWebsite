@@ -4,7 +4,7 @@ function whitePawn(xCoord,yCoord,board){
 	this.x = xCoord;
 	this.y = yCoord;
 
-	this.name = "white pawn";
+	this.name = "pawn";
 
 	this.width = tileSize/2;
 	this.height = tileSize/1.4;
@@ -54,19 +54,15 @@ function whitePawn(xCoord,yCoord,board){
 		this.moveSet = [];
 
 		if(this.b.tileExists(this.x-1,this.y-1)){
-			if(this.b.tileContainsPiece(this.x+1,this.y-1) != null){
-				if(this.b.tileContainsPiece(this.x+1,this.y-1).color != this.color){
-					this.addToMoveSet(this.x+1,this.y-1);	
+			if(this.b.tileContainsPiece(this.x-1,this.y-1) != null){
+				if(this.b.tileContainsPiece(this.x-1,this.y-1).color != this.color){
+					this.addToMoveSet(this.x-1,this.y-1);	
 				}
 			}
 		}
 
 		if(this.b.tileExists(this.x,this.y-1)){
-			if(this.b.tileContainsPiece(this.x,this.y-1) != null){
-				if(this.b.tileContainsPiece(this.x,this.y-1).color != this.color){
-					this.addToMoveSet(this.x,this.y-1);
-				}
-			}else{
+			if(this.b.tileContainsPiece(this.x,this.y-1) == null){
 				this.addToMoveSet(this.x,this.y-1);
 			}
 		}
@@ -83,7 +79,7 @@ function whitePawn(xCoord,yCoord,board){
 
 
 		if(this.y == 6){
-			if(this.b.tileContainsPiece(this.x,this.y-2) == null){
+			if(this.b.tileContainsPiece(this.x,this.y-2) == null && this.b.tileContainsPiece(this.x,this.y-1) == null){
 				this.addToMoveSet(this.x,this.y-2);
 			}
 		}

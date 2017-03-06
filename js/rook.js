@@ -4,7 +4,7 @@ function rook(xCoord,yCoord,pieceColor, board){
 	this.x = xCoord;
 	this.y = yCoord;
 
-	this.name = "Rook";
+	this.name = "rook";
 
 	this.width = tileSize/2;
 	this.height = tileSize/1.25;

@@ -1,9 +1,14 @@
 #game-area {
-	margin: auto;
+	margin-left: 25%;
+	margin-top: 3%;
 	border: 1px solid black;
 
 }
 
 img{
 	display: none;
+}
+
+body{
+	background-color: black;
 }

@@ -4,7 +4,7 @@ function knight(xCoord,yCoord,pieceColor,board){
 	this.x = xCoord;
 	this.y = yCoord;
 
-	this.name = "Knight";
+	this.name = "knight";
 
 	this.width = tileSize/1.25;
 	this.height = tileSize/1.25;

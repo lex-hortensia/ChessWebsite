@@ -4,7 +4,7 @@ function bishop(xCoord,yCoord, pieceColor, board){
 	this.x = xCoord;
 	this.y = yCoord;
 
-	this.name = "Bishop";
+	this.name = "bishop";
 
 	this.width = tileSize/1.25;
 	this.height = tileSize/1.25;
