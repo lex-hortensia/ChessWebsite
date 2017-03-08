@@ -4,8 +4,10 @@
 
 var b = new board();
 
+
 function generateNewBoard(){
 	b = new board();
+	 
 }
 
 
@@ -17,12 +19,12 @@ function processMouseInput(event) {
 	var arrayY = Math.floor(relY/tileSize);
 
 	b.selectTile(arrayX,arrayY);
+	 
 }
 
 canvasGA.addEventListener('click',processMouseInput);
 
 
-b.draw();
 
 
 

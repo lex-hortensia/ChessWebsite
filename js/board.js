@@ -11,6 +11,8 @@ function board(){
 	this.blackPieces = [];
 	this.turn = true; // true = white, false = black
 	this.color = "white";
+
+	this.moveList = new moveList();
 	
 
 
@@ -183,12 +185,15 @@ function board(){
 
 		if(this.getSelectedPiece() != null){
 			if(this.getSelectedPiece().isInMoveSet(xCoord,yCoord)){
+				var capture = false;
 
 				if(this.tileContainsPiece(xCoord,yCoord) != null){
 					if(this.tileContainsPiece(xCoord,yCoord) != this.getSelectedPiece()){
-
-						console.log("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name );
 						
+						capture = true;
+						//console.log("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name );
+						//this.moveList.addToMoveList("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name);
+
 						if(this.whitePieces.indexOf(this.tileContainsPiece(xCoord,yCoord)) > -1){
 							if(this.tileContainsPiece(xCoord,yCoord).name=="king"){
 								this.victoryBlack();
@@ -205,6 +210,7 @@ function board(){
 				}
 
 				this.getSelectedPiece().moveTo(xCoord,yCoord);
+				this.moveListText(capture,xCoord,yCoord);
 				this.refreshMoveSets();
 
 				if(this.turn == false)
@@ -245,6 +251,7 @@ function board(){
 
 		this.draw();
 
+
 		
 	}
 
@@ -274,10 +281,68 @@ function board(){
 
 	}
 
+	this.moveListText = function(capture, xCoord, yCoord){
+		// Color
+		var color;
+		 if(this.getSelectedPiece().color == "white")
+		 	color="White";
+		 else
+		 	color="Black";
+		 
+		// Piece Name Abbreviation
+		var name = this.getSelectedPiece().name;
+		var piece;
+		if(name == "knight")
+			piece = "N";
+		else if(name == "rook")
+			piece = "R";
+		else if(name == "bishop")
+			piece = "B";
+		else if(name == "queen")
+			piece = "Q";
+		else if(name == "king")
+			piece = "K";
+		else if(name == "pawn")
+			piece = "P";
+		// Capture 'x'
+		var capt;
+		if(capture == true)
+			capt = "x";
+		else
+			capt = "";
+		// Grid location
+		var gridX;
+		var gridY;
+		gridX = String.fromCharCode(xCoord+97);
+ 		
+ 		if(yCoord==0)
+ 			gridY=8;
+ 		else if(yCoord==1)
+ 			gridY=7;
+ 		else if(yCoord==2)
+ 			gridY=6;
+ 		else if(yCoord==3)
+ 			gridY=5;
+ 		else if(yCoord==4)
+ 			gridY=4;
+ 		else if(yCoord==5)
+ 			gridY=3;
+ 		else if(yCoord==6)
+ 			gridY=2;
+ 		else if(yCoord==7)
+ 			gridY=1;
+
+	    this.moveList.addToMoveList(color+": "+ piece + capt + gridX + gridY);
+		
+
+
+	}
+
 
 
 
 	this.draw = function(){
+
 		for(var i = 0; i<this.files.length; i++){
 			for(var j = 0; j<this.files[i].length; j++){
 
@@ -293,6 +358,8 @@ function board(){
 				}
 			}
 		}
+
+		this.moveList.draw();
 	}
 
 
@@ -323,6 +390,8 @@ function board(){
 
 	this.refreshMoveSets();
 	this.draw();
+
+
 	
 	
 

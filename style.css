@@ -1,12 +1,11 @@
 #game-area {
-	margin-left: 27%;
+	margin-left: 23%;
 	margin-top: 10px;
 	border: 1px solid black;
 
 }
 
 #game-type-form {
-	
 	color: white;
 	text-align: center;
 }
@@ -17,4 +16,9 @@ img{
 
 body{
 	background-color: black;
+}
+
+h1{
+	text-align: center;
+	color: white;
 }
