@@ -1,8 +1,14 @@
 #game-area {
-	margin-left: 25%;
-	margin-top: 3%;
+	margin-left: 27%;
+	margin-top: 10px;
 	border: 1px solid black;
 
+}
+
+#game-type-form {
+	
+	color: white;
+	text-align: center;
 }
 
 img{

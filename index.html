@@ -7,10 +7,19 @@
 
 	<body>
 
+
+	<p>Select </p>
+
+	<form id="game-type-form">
+	  Regular:<input id="reg-btn" type="radio" name="gametype" value="regular"><br>
+	  Randomized:<input id="ran-btn" type="radio" name="gametype" value="random"><br>
+	  <input type="button" onclick="generateNewBoard();" value="Submit">
+	</form>
+
 	
 
 	<canvas id="game-area" width="640" height="640"></canvas>
-
+     
 
 	<img src="images/white-queen.png" id="white-queen">
 	<img src = "images/white-rook.png" id="white-rook">

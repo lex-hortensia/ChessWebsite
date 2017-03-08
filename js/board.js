@@ -1,7 +1,10 @@
+// Javascript File 02
 
 
 function board(){
 
+
+	
 	this.files = [];
 	this.x = 0;
 	this.whitePieces = [];
@@ -27,30 +30,96 @@ function board(){
 		}
 		this.x++;
 	}
-
 	
-	this.whitePieces.push(new bishop(2,7,"white",this));
-	this.whitePieces.push(new bishop(5,7,"white",this));
-	this.whitePieces.push(new rook(7,7,"white",this));
-	this.whitePieces.push(new rook(0,7,"white",this));
-	this.whitePieces.push(new queen(3,7,"white",this));
-	this.whitePieces.push(new knight(1,7,"white",this));
-	this.whitePieces.push(new knight(6,7,"white",this));
 	this.whitePieces.push(new king(4,7,"white",this));
-
-
-	this.blackPieces.push(new rook(0,0,"black",this));
-	this.blackPieces.push(new knight(1,0,"black",this));
-	this.blackPieces.push(new bishop(2,0,"black",this));
-	this.blackPieces.push(new queen(3,0,"black",this));
 	this.blackPieces.push(new king(4,0,"black",this));
-	this.blackPieces.push(new bishop(5,0,"black",this));
-	this.blackPieces.push(new knight(6,0,"black",this));
-	this.blackPieces.push(new rook(7,0,"black",this));
 
-	for(var i = 0; i < 8; i++){
-		this.whitePieces.push(new whitePawn(i,6,this));
-		this.blackPieces.push(new blackPawn(i,1,this));
+
+	if(document.getElementById("ran-btn").checked){
+	
+		for(var i = 0; i < 16; i++){
+			var newpiece = Math.floor(Math.random()*5);
+			 
+
+			var x = i;
+			var y = 7;
+			if(i>7){
+				y = 6;
+				x = i-8;
+			}
+
+			if(x == 4 && y == 7){
+				x = 90000;
+			}
+
+			if(newpiece == 0){
+				this.whitePieces.push(new whitePawn(x,y,this));
+			}else if(newpiece == 1){
+				this.whitePieces.push(new knight(x,y,"white",this));
+			}else if(newpiece == 2){
+				this.whitePieces.push(new bishop(x,y,"white",this));
+			}else if(newpiece == 3){
+				this.whitePieces.push(new queen(x,y,"white",this));
+			}else if(newpiece == 4){
+				this.whitePieces.push(new rook(x,y,"white",this));
+			}
+		
+		}
+
+		for(var i = 0; i < 16; i++){
+			var newpiece = Math.floor(Math.random()*5);
+			 
+
+			var x = i;
+			var y = 0;
+			if(i>7){
+				y = 1;
+				x = i-8;
+			}
+
+			if(x == 4 && y == 0){
+				x = 90000;
+			}
+
+			if(newpiece == 0){
+				this.blackPieces.push(new blackPawn(x,y,this));
+			}else if(newpiece == 1){
+				this.blackPieces.push(new knight(x,y,"black",this));
+			}else if(newpiece == 2){
+				this.blackPieces.push(new bishop(x,y,"black",this));
+			}else if(newpiece == 3){
+				this.blackPieces.push(new queen(x,y,"black",this));
+			}else if(newpiece == 4){
+				this.blackPieces.push(new rook(x,y,"black",this));
+			}
+		
+		}
+	}else{
+		this.whitePieces.push(new bishop(2,7,"white",this));
+		this.whitePieces.push(new bishop(5,7,"white",this));
+		this.whitePieces.push(new rook(7,7,"white",this));
+		this.whitePieces.push(new rook(0,7,"white",this));
+		this.whitePieces.push(new queen(3,7,"white",this));
+		this.whitePieces.push(new knight(1,7,"white",this));
+		this.whitePieces.push(new knight(6,7,"white",this));
+		this.whitePieces.push(new king(4,7,"white",this));
+
+
+		this.blackPieces.push(new rook(0,0,"black",this));
+		this.blackPieces.push(new knight(1,0,"black",this));
+		this.blackPieces.push(new bishop(2,0,"black",this));
+		this.blackPieces.push(new queen(3,0,"black",this));
+		this.blackPieces.push(new king(4,0,"black",this));
+		this.blackPieces.push(new bishop(5,0,"black",this));
+		this.blackPieces.push(new knight(6,0,"black",this));
+		this.blackPieces.push(new rook(7,0,"black",this));
+
+
+
+		for(var i = 0; i < 8; i++){
+			this.whitePieces.push(new whitePawn(i,6,this));
+			this.blackPieces.push(new blackPawn(i,1,this));
+		}
 	}
 	
 	
@@ -253,6 +322,7 @@ function board(){
 	}
 
 	this.refreshMoveSets();
+	this.draw();
 	
 	
 

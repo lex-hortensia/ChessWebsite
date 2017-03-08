@@ -1,3 +1,5 @@
+// Javascript File 01
+
 function tile(xCoord, yCoord, white){
 	this.x = xCoord;
 	this.y = yCoord;

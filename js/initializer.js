@@ -1,3 +1,4 @@
+// Javascript File 00
 
 var canvasGA = document.getElementById("game-area");
 

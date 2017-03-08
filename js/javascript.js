@@ -1,8 +1,12 @@
-// Javascript File 01
+// Javascript File 03
 
 
 
 var b = new board();
+
+function generateNewBoard(){
+	b = new board();
+}
 
 
 function processMouseInput(event) {

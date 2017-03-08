@@ -75,9 +75,6 @@ function blackPawn(xCoord,yCoord,board){
 			}
 		}
 
-
-
-
 		if(this.y == 1){
 			if(this.b.tileContainsPiece(this.x,this.y+2) == null && this.b.tileContainsPiece(this.x,this.y+1) == null){
 				this.addToMoveSet(this.x,this.y+2);
