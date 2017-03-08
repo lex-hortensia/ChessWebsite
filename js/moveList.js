@@ -16,7 +16,7 @@ function moveList(){
 		
 		contextGA.fillStyle="#FFFFFF";
 		contextGA.strokeStyle="#000000";
-		contextGA.font = "20px Times New Roman";
+		contextGA.font = "20px bold Times New Roman";
 		contextGA.fillRect(this.x,this.y,this.width,this.height);
 		contextGA.strokeRect(this.x,this.y,this.width,this.height);
 		contextGA.fillStyle="#AAADAD";

@@ -194,6 +194,7 @@ function board(){
 					if(this.tileContainsPiece(xCoord,yCoord) != this.getSelectedPiece()){
 						
 						capture = true;
+						this.statusBoard.addTakenPiece(this.tileContainsPiece(xCoord,yCoord));
 						
 						//console.log("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name );
 						//this.moveList.addToMoveList("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name);
