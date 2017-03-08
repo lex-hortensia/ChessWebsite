@@ -66,11 +66,11 @@ function statusBoard(){
 		contextGA.fillText("Black: ", this.x+10,this.y+385);
 
 		for(var i = 0; i<this.takenWhitePieces.length; i++){
-			contextGA.fillText(this.takenWhitePieces[i].name, this.x + 60, this.y+185 + (i*15));
+			contextGA.fillText(i+1+". "+this.takenWhitePieces[i].name, this.x + 60, this.y+185 + (i*15));
 		}
 
 		for(var i = 0; i<this.takenBlackPieces.length; i++){
-			contextGA.fillText(this.takenBlackPieces[i].name, this.x + 60, this.y+385+(i*15));
+			contextGA.fillText(i+1+". "+this.takenBlackPieces[i].name, this.x + 60, this.y+385+(i*15));
 		}
 
 
