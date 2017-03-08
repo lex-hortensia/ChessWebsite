@@ -6,6 +6,8 @@ function queen(xCoord,yCoord,pieceColor, board){
 
 	this.name = "queen";
 
+	this.score = 9;
+
 	this.width = tileSize/1.25;
 	this.height = tileSize/1.25;
 
@@ -20,7 +22,7 @@ function queen(xCoord,yCoord,pieceColor, board){
 
 
 	this.draw = function(){
-		contextGA.drawImage(this.img, this.x*tileSize + (tileSize-this.width)/2, this.y*tileSize + (tileSize-this.height)/2,this.width,this.height);
+		contextGA.drawImage(this.img,200+(this.x*tileSize + (tileSize-this.width)/2), this.y*tileSize + (tileSize-this.height)/2,this.width,this.height);
 	}
 
 	this.addToMoveSet = function(xCoord,yCoord){

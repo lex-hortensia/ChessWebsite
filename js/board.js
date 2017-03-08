@@ -13,6 +13,8 @@ function board(){
 	this.color = "white";
 
 	this.moveList = new moveList();
+	this.statusBoard = new statusBoard();
+
 	
 
 
@@ -24,9 +26,9 @@ function board(){
 		for(var j = 0; j<8;j++){
 
 			if((j+this.x)%2 == 0){
-				this.files[i][j] = new tile(j*tileSize,i*tileSize,true);
+				this.files[i][j] = new tile(200+(j*tileSize),i*tileSize,true);
 			}else{
-				this.files[i][j] = new tile(j*tileSize,i*tileSize,false);
+				this.files[i][j] = new tile(200+(j*tileSize),i*tileSize,false);
 			}
 			
 		}
@@ -50,20 +52,19 @@ function board(){
 				x = i-8;
 			}
 
-			if(x == 4 && y == 7){
-				x = 90000;
-			}
-
-			if(newpiece == 0){
-				this.whitePieces.push(new whitePawn(x,y,this));
-			}else if(newpiece == 1){
-				this.whitePieces.push(new knight(x,y,"white",this));
-			}else if(newpiece == 2){
-				this.whitePieces.push(new bishop(x,y,"white",this));
-			}else if(newpiece == 3){
-				this.whitePieces.push(new queen(x,y,"white",this));
-			}else if(newpiece == 4){
-				this.whitePieces.push(new rook(x,y,"white",this));
+			if(x != 4 || y != 7){
+				
+				if(newpiece == 0){
+					this.whitePieces.push(new whitePawn(x,y,this));
+				}else if(newpiece == 1){
+					this.whitePieces.push(new knight(x,y,"white",this));
+				}else if(newpiece == 2){
+					this.whitePieces.push(new bishop(x,y,"white",this));
+				}else if(newpiece == 3){
+					this.whitePieces.push(new queen(x,y,"white",this));
+				}else if(newpiece == 4){
+					this.whitePieces.push(new rook(x,y,"white",this));
+				}
 			}
 		
 		}
@@ -79,20 +80,22 @@ function board(){
 				x = i-8;
 			}
 
-			if(x == 4 && y == 0){
-				x = 90000;
-			}
+			if(x != 4 || y != 0){
+				
+			
 
-			if(newpiece == 0){
-				this.blackPieces.push(new blackPawn(x,y,this));
-			}else if(newpiece == 1){
-				this.blackPieces.push(new knight(x,y,"black",this));
-			}else if(newpiece == 2){
-				this.blackPieces.push(new bishop(x,y,"black",this));
-			}else if(newpiece == 3){
-				this.blackPieces.push(new queen(x,y,"black",this));
-			}else if(newpiece == 4){
-				this.blackPieces.push(new rook(x,y,"black",this));
+				if(newpiece == 0){
+					this.blackPieces.push(new blackPawn(x,y,this));
+				}else if(newpiece == 1){
+					this.blackPieces.push(new knight(x,y,"black",this));
+				}else if(newpiece == 2){
+					this.blackPieces.push(new bishop(x,y,"black",this));
+				}else if(newpiece == 3){
+					this.blackPieces.push(new queen(x,y,"black",this));
+				}else if(newpiece == 4){
+					this.blackPieces.push(new rook(x,y,"black",this));
+				}
+
 			}
 		
 		}
@@ -104,14 +107,13 @@ function board(){
 		this.whitePieces.push(new queen(3,7,"white",this));
 		this.whitePieces.push(new knight(1,7,"white",this));
 		this.whitePieces.push(new knight(6,7,"white",this));
-		this.whitePieces.push(new king(4,7,"white",this));
+		
 
 
 		this.blackPieces.push(new rook(0,0,"black",this));
 		this.blackPieces.push(new knight(1,0,"black",this));
 		this.blackPieces.push(new bishop(2,0,"black",this));
 		this.blackPieces.push(new queen(3,0,"black",this));
-		this.blackPieces.push(new king(4,0,"black",this));
 		this.blackPieces.push(new bishop(5,0,"black",this));
 		this.blackPieces.push(new knight(6,0,"black",this));
 		this.blackPieces.push(new rook(7,0,"black",this));
@@ -123,6 +125,7 @@ function board(){
 			this.blackPieces.push(new blackPawn(i,1,this));
 		}
 	}
+
 	
 	
 	this.tileContainsPiece = function(xCoord,yCoord){
@@ -191,6 +194,7 @@ function board(){
 					if(this.tileContainsPiece(xCoord,yCoord) != this.getSelectedPiece()){
 						
 						capture = true;
+						
 						//console.log("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name );
 						//this.moveList.addToMoveList("The " + this.getSelectedPiece().color +" "+  this.getSelectedPiece().name + " takes the " + this.tileContainsPiece(xCoord,yCoord).color +" "+ this.tileContainsPiece(xCoord,yCoord).name);
 
@@ -254,6 +258,23 @@ function board(){
 
 		
 	}
+
+	this.sendScoresToStatusBoard = function(){
+		
+		var whiteScore = 0;
+		var blackScore = 0;
+
+		for(var i = 0; i<this.whitePieces.length; i++){
+			whiteScore+=this.whitePieces[i].score;
+		}
+
+		for(var i = 0; i<this.blackPieces.length; i++){
+			blackScore+=this.blackPieces[i].score;
+		}
+		console.log(whiteScore + ", " + blackScore);
+		this.statusBoard.setScores(whiteScore,blackScore);
+	}
+
 
 
 	this.tileExists = function(xCoord,yCoord){
@@ -360,6 +381,8 @@ function board(){
 		}
 
 		this.moveList.draw();
+		this.sendScoresToStatusBoard();
+		this.statusBoard.draw();
 	}
 
 
@@ -390,6 +413,7 @@ function board(){
 
 	this.refreshMoveSets();
 	this.draw();
+	
 
 
 	

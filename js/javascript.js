@@ -12,8 +12,8 @@ function generateNewBoard(){
 
 
 function processMouseInput(event) {
-	var relX = event.clientX - canvasGA.offsetLeft;
-	var relY = event.clientY - canvasGA.offsetTop;
+	var relX = (event.clientX - canvasGA.offsetLeft)-200;
+	var relY = (event.clientY - canvasGA.offsetTop);
 
 	var arrayX = Math.floor(relX/tileSize);
 	var arrayY = Math.floor(relY/tileSize);

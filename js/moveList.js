@@ -1,6 +1,6 @@
 
 function moveList(){
-	this.x = 640;
+	this.x = 840;
 	this.y = 0;
 	this.width = 200;
 	this.height = 640;	
